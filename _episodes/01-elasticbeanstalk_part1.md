@@ -2,13 +2,9 @@
 title: "AWS Elastic Beanstalk"
 teaching: 0
 exercises: 30
-questions:
-- "Can we break up the lesson into multiple parts?"
 objectives:
-- "See that you can have more than one part for the lesson"
-keypoints:
-- "We can add parts to the lesson, by adding more markdown files"
-- "You get the picture"
+- "Deploy a Django web framework on AWS Elastic Beanstalk"
+- "Learn how to use a Python IDE to build your web app"
 ---
 ## Prerequisites
 - [Anaconda](https://docs.continuum.io/anaconda/install) or working version of Python

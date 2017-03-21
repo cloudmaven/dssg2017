@@ -1,7 +1,7 @@
 ---
 title: "AWS Elastic Beanstalk"
 teaching: 0
-exercises: 45
+exercises: 30
 questions:
 - "Can we break up the lesson into multiple parts?"
 objectives:
@@ -49,7 +49,9 @@ option_settings:
 
 ![](/cloud101_webframework/fig/02-elasticbeanstalk-0004.png)
 
-Next, you need a requirements file to tell Beanstalk which dependencies to install when you deploy your Django app. Create a new file named requirements.txt in the root of the project. Paste the following in the requirements.txt file:
+Next, you need a requirements file to tell Beanstalk which dependencies to install when you deploy your Django app. Create a new file named requirements.txt in the root of the project. In your Terminal window (and under your python environment), you can use pip freeze to see what dependencies need to be installed. Select the dependencies and paste them into the requirements.txt file.
+
+For example: 
 
 ~~~
 appdirs==1.4.3
@@ -70,31 +72,3 @@ This will open up the manage.py console. Type migrate webapp then runserver:
 ![](/cloud101_webframework/fig/02-elasticbeanstalk-0006.png)
 
 You will see a sample Django application being deployed on http://127.0.0.1:8000/
-
-## Django Web API
-
-~~~
-#### Django modules
-from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse, Http404, HttpResponseServerError, HttpResponseNotFound
-from django.template import RequestContext
-from django.views.decorators.cache import cache_control
-from django.conf import settings
-~~~
-
-def simple_chart(request):
-    assert isinstance(request, HttpRequest)
-    
-    month  = request.GET.get('month', None)
-    var = request.GET.get('var', None)
-
-    filename = "./test.geojson"
-    infile = 'Mean_' + month + '_' + var + '.geojson'
-    blob_service = BlobService(account_name='araldrift', account_key='xxx')
-    blob_service.get_blob_to_path('flow', infile, filename)
-
-    geojsondata = open(filename).read()
-
-    return render(request, "map_api.html", {"geojsondata": geojsondata})
-
-

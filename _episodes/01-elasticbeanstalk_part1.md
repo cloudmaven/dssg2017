@@ -87,10 +87,6 @@ The code is here: https://github.com/cloudmaven/cloud101demo_beanstalk/blob/mast
 
 A couple of points to note here is that layout.html will be your default template. You can use this snippet at the top of every new html page. The layout html file also includes all the references to bootstrap, js and jsquery:
 
-```python
-{% extends "app/layout.html" %}
-``` 
-
 ** settings.py **
 Next, we are going to mess around with the settings. This is found in the settings.py file. You want to check that you have the name of your app included in your INSTALLED_APPS, e.g.:
 

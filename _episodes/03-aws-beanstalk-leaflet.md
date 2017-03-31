@@ -16,7 +16,7 @@ keypoints:
 
 ```python
 
-            {% extends "app/layout.html" %}
+            {%  extends "app/layout.html" %}
 
             {%  block head %}
                 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>

@@ -76,6 +76,7 @@ You should now have a directory structure that looks like this:
 We will now build a couple of template files, the API scripts and the Leaflet map. 
 
 ** Template Files (index.html and layout.html)**
+
 Right click on Templates > New > Directory > app (this creates a folder named 'app')
 
 Right click on Templates (app) > New > HTML File > layout.html

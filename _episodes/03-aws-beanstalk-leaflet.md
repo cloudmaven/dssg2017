@@ -14,7 +14,7 @@ keypoints:
 
 **Build your map**
 
-{% highlight python %}
+```python
 
             {% extends "app/layout.html" %}
 
@@ -115,4 +115,4 @@ keypoints:
 
             {% endblock %}
 
-{% endhighlight %}
+```

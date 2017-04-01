@@ -12,7 +12,7 @@ keypoints:
 ---
 ## ...Continued from [Part 2](/02-elasticbeanstalk-api.html)
 
-**Build your map page **
+**Build your map page**
 
 First create an HTML file called map_api.html in your templates folder
 

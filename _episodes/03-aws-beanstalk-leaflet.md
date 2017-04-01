@@ -1,7 +1,7 @@
 ---
 title: "Leaflet Maps on AWS Elastic Beanstalk"
 teaching: 0
-exercises: 15
+exercises: 20
 questions:
 - "How do I build a Leaflet map?"
 objectives:
@@ -12,107 +12,62 @@ keypoints:
 ---
 ## ...Continued from [Part 2](/02-elasticbeanstalk-api.html)
 
-**Build your map**
+**Build your map page **
+
+First create an HTML file called map_api.html in your templates folder
+
+Right click on Templates > New > HTML file > map_api.html
+
+The Leaflet code is here: https://github.com/cloudmaven/cloud101demo_beanstalk/blob/master/templates/map_api.html
+
+We will walk through this code quickly together. 
+
+
+**Tying all the pieces together**
+The last two things we need to do is to put references to our API and map page in our code. 
+
+The first is editing the views.py file which contains the views python function. This is where we specify what happens when there is a web request. 
+
+In views.py under the app folder, we will add this code:
 
 ```python
+from django.template.response import TemplateResponse
 
-            {%  extends "app/layout.html" %}
+# Create your views here.
+def home(request):
+    """Renders the home page."""
+    return TemplateResponse(request, 'app/index.html', {
+            'title':'Home Page'
+        })
 
-            {%  block head %}
-                <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-            <style>
-                  .leaflet-container { height: 600px; }
-                  .legend { text-align: left; line-height: 18px; color: #555; }
-                  .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
-                </style>
-            {%  endblock %}
+def map_api(request):
+    """Renders the map page."""
+    month = request.GET.get('month', None)
+    var = request.GET.get('var', None)
 
-            {% block content %}
-                <form id="api-form">
-                  <br>
-                    <br>
-                    <br>
-                    Month:<br>
-                  <input type="text" name="month" value="e.g. Apr">
-                  <br>
-                  Variable:<br>
-                  <input type="text" name="var" value="e.g. ET">
-                  <br><br>
-                  <input type="submit" value="Submit">
-                <br>
-                <br>
-                </form>
-                <div id="map" height="100%" width="100%"></div>
-            {% endblock %}
+    return TemplateResponse(
+        request,
+        'map_api.html',{
+            'title':'MAP_API',
+            'message':'Generate the spatial plot for average values',
+            'month': month,
+            'var': var
+        }
+    )
+```
 
-             {% block script %}
-                 // Make marker colors variable
-            function getValue(x) {
-                return x > 30 ? "#800026" :
-                       x > 25 ? "#BD0026" :
-                       x > 20 ? "#E31A1C" :
-                       x > 15 ? "#FC4E2A" :
-                       x > 10 ? "#FD8D3C" :
-                       x > 5 ? "#FEB24C" :
-                       x > 0 ? "#FED976" :
-                           "#FFEDA0";
-            }
+Next, we have to set up the URL configuration. This python code provides the mapping for URLs. In the urls.py file under cloud101demo (or name of your project) subfolder, we will add this snippet: 
 
-            function style(feature) {
-                return {
-                    "color": getValue(feature.properties.val),
-                    "radius": 3,
-                    "fillOpacity": 0.6,
-                    "stroke": false
-                };
-            }
+```python 
+from django.conf.urls import url
+from django.contrib import admin
+from app import views
+from app import api
 
-
-            // Initialize Leaflet map
-                 var map = L.map('map').setView([39, 68], 6);
-                 L.tileLayer('https://api.mapbox.com/styles/v1/cloudmaven/civbvg87q001m2ipk2m1qfq5x/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2xvdWRtYXZlbiIsImEiOiJjaXZidWFzMTEwMGJ1MnlvNnRvOW8xY2lxIn0.zWtZR-VJDOgoxHo5R64VuA', {
-                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                        }).addTo(map);
-
-            // Add legend
-            var legend = L.control({position: 'bottomright'});
-            legend.onAdd = function (map) {
-
-                var div = L.DomUtil.create('div', 'info legend'),
-                    grades = [0, 5, 10, 15, 20, 25, 30, 35],
-                    labels = [];
-
-                // loop through our density intervals and generate a label with a colored square for each interval
-                for (var i = 0; i < grades.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getValue(grades[i] + 1) + '"></i> ' +
-                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-                }
-
-                return div;
-            };
-
-            legend.addTo(map);
-
-            var month = '{{ month }}';
-                 var variable = '{{ var }}';
-                 console.log(month);
-                 console.log(variable);
-                 var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  var geojsonFeature = JSON.parse(this.responseText);
-                 L.geoJSON(JSON.parse(geojsonFeature), {pointToLayer: function (feature, latlng) {
-                     return L.circleMarker(latlng, style(feature)).bindPopup(feature.properties.val)
-                        .on('mouseover', function (e) {
-                        this.openPopup()});
-                 }}).addTo(map);
-                }
-            };
-            xhttp.open("GET", "/api/simple_chart?month=" + month + "&var=" + variable, true);
-            xhttp.send();
-
-            {% endblock %}
-
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', views.home, name='home'),
+    url(r'^map_api', views.map_api, name='map_api'),
+    url(r'^api/simple_chart', api.simple_chart),
+]
 ```

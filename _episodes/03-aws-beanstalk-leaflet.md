@@ -23,7 +23,9 @@ The Leaflet code is here: https://github.com/cloudmaven/cloud101demo_beanstalk/b
 We will walk through this code quickly together. 
 
 
+
 **Tying all the pieces together**
+
 The last two things we need to do is to put references to our API and map page in our code. 
 
 The first is editing the views.py file which contains the views python function. This is where we specify what happens when there is a web request. 

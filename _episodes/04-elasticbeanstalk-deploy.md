@@ -1,5 +1,5 @@
 ---
-title: "Leaflet Maps on AWS Elastic Beanstalk"
+title: "Deployment of Django Web App on AWS Elastic Beanstalk"
 teaching: 0
 exercises: 15
 questions:

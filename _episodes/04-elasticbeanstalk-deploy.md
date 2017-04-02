@@ -16,88 +16,56 @@ keypoints:
 
 Make sure you have the [Pycharm AWS Beanstalk Plugin](https://plugins.jetbrains.com/plugin/7274-aws-elastic-beanstalk-integration) installed. 
 
+
 **Plugin Installation**
 
 *Adapted from IntelliJ Intellij IDEA: AWS Elastic Beanstalk Integration from Viatra Documentation*
 
-At the first you should install the plugin:
+
 Go to “File”>”Settings”>”Plugins” window and press “Browse repositories”, repository browser window will open
+
 Find “AWS Elastic Beanstalk Integration” plugin, make a right mouse button click and select “Download and Install” option in the context menu, press “Yes” in popup dialog
+
 Close “Settings” window and restart IntelliJ IDEA to apply changes
-Installed plugin should appear in your plugins list like on screenshot below
+
+Installed plugin should appear in your plugins list like on screenshot below:
+
+![](/cloud101_webframework/fig/04-elasticbeanstalk-deploy-0001.png)
 
 
+**Cloud Credentials Setup**
 
-Cloud Credentials Setup
 You need to create proper Application Server configuration:
-Go to “Run/Debug Configurations” window
+
+Go to “Run” > "Edit Configuration"
+
 Press “Add new configuration” and select “AWS ElasticBeanstalk Deployment”
+
 Press “...” button, clouds configuration window appears
+
 Press “+” button and fill “Name”, “Access key” and “Secret key” fields. Security credendials can be obtained from AWS Account Security Credentials webpage.
+
 Press “Test connection” button. All required libraries should be downloaded and you should see “Connection successful” message. If you see error messages - recheck correctness of your access and secret keys
+
 If you want to deploy on particular AWS Region - select it in “Region” list
 Press “OK” and save your settings
 
+![](/cloud101_webframework/fig/04-elasticbeanstalk-deploy-0002.png)
+
+You will return to the previous window where you will fill in "Name", "Application Name" and the "Environment Name". Our solution stack will be "64-bit Amazon Linux 2016.v2.3.2 running Python 3.4" -- This is the latest AMI and is necessary to ensure that your Django framework runs! Select "aws-elasticbeanstalk-ec2-role" for the IAM role. You may need to click on the "Reload" button to load the role. 
+
+You should now have a window that looks something like this:
+
+![](/cloud101_webframework/fig/04-elasticbeanstalk-deploy-0003.png)
 
 
+**Testing and Deployment**
+Test your deployment locally first by clicking on drop down menu near the top right to select "Django Server", next to "Run" button:
 
+![](/cloud101_webframework/fig/04-elasticbeanstalk-deploy-0004.png)
 
-First create an HTML file called map_api.html in your templates folder
+You can view your local deployment on the development server, http://127.0.0.1:8000/
 
-Right click on Templates > New > HTML file > map_api.html
+Next, from the same drop down menu, select the Beanstalk deployment. It should be named after the "Application Name" you input into the configuration earlier. When prompted, you should commit and push. This will store your code on your local git repository. 
 
-The Leaflet code is here: https://github.com/cloudmaven/cloud101demo_beanstalk/blob/master/templates/map_api.html
-
-We will walk through this code quickly together. 
-
-
-
-**Tying all the pieces together**
-
-The last two things we need to do is to put references to our API and map page in our code. 
-
-The first is editing the views.py file which contains the views python function. This is where we specify what happens when there is a web request. 
-
-In views.py under the app folder, we will add this code:
-
-```python
-from django.template.response import TemplateResponse
-
-# Create your views here.
-def home(request):
-    """Renders the home page."""
-    return TemplateResponse(request, 'app/index.html', {
-            'title':'Home Page'
-        })
-
-def map_api(request):
-    """Renders the map page."""
-    month = request.GET.get('month', None)
-    var = request.GET.get('var', None)
-
-    return TemplateResponse(
-        request,
-        'map_api.html',{
-            'title':'MAP_API',
-            'message':'Generate the spatial plot for average values',
-            'month': month,
-            'var': var
-        }
-    )
-```
-
-Next, we have to set up the URL configuration. This python code provides the mapping for URLs. In the urls.py file under cloud101demo (or name of your project) subfolder, we will add this snippet: 
-
-```python 
-from django.conf.urls import url
-from django.contrib import admin
-from app import views
-from app import api
-
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name='home'),
-    url(r'^map_api', views.map_api, name='map_api'),
-    url(r'^api/simple_chart', api.simple_chart),
-]
-```
+![](/cloud101_webframework/fig/04-elasticbeanstalk-deploy-0005.png)

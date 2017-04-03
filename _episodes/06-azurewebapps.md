@@ -7,6 +7,8 @@ objectives:
 - "Learn how to use a Python IDE to build your web app"
 ---
 
+**WE MAY NOT ALL BE ABLE TO DEPLOY THIS APP SINCE WE ALL BELONG TO THE SAME SUBSCRIPTION. DEPLOYMENTS TO THE SAME RESOURCE GROUP MAY TAKE A LONG TIME**
+
 ## Prerequisites
 - Azure CLI you can mostly just use pip install azure-cli (More installation tips here: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) 
 

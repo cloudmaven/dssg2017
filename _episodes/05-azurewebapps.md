@@ -1,8 +1,10 @@
 ---
-layout: break
-title: "Django Webframework on Azure Web Apps"
+title: "Django Web App on Microsoft Azure"
 teaching: 0
-exercises: 25
+exercises: 30
+objectives:
+- "Deploy a Django web framework on AWS Elastic Beanstalk"
+- "Learn how to use a Python IDE to build your web app"
 ---
 
 ## Prerequisites
@@ -91,6 +93,12 @@ env\scripts\python -m pip install pip --upgrade
 IF !ERRORLEVEL! NEQ 0 goto error
 echo Pip install requirements.
 env\scripts\pip install -r requirements.txt
+```
+
+We are also going to create a .skipDjango file to avoid having to collect all our static files - which we don't have anyway. 
+
+```
+touch .skipDjango 
 ```
 
 Now you just have to commit your code, and push it to azure. To find your Azure git repo, go to your Apps blade > Overview and select the "git clone url". It should look something like this:

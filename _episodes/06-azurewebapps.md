@@ -23,15 +23,18 @@ In the search box, type "python".
 
 In the search results, select Django (published by PTVS), then click Create.
 
+![](/cloud101_webframework/fig/05-azurewebapps-0001.png)
+
+![](/cloud101_webframework/fig/05-azurewebapps-0002.png)
+
+![](/cloud101_webframework/fig/05-azurewebapps-0003.png)
+
 Configure the new Django app, such as creating a new App Service plan and a new resource group for it. Then, click Create.
 
 Configure Git publishing for your newly created web app by following the instructions at Local Git Deployment to Azure App Service.
 
-![](/cloud101_webframework/fig/05-azurewebapps-0001.png)
 
 Once the app is deployed, you should be able to see it on your dashboard; otherwise, go to All Resources and search for your App Name.  In your App, select Application Settings and change Always On to "On". Click "Save". 
-
-![](/cloud101_webframework/fig/05-azurewebapps-0002.png)
 
 
 ## Modifying your Django code
@@ -104,6 +107,8 @@ touch .skipDjango
 ```
 
 Now you just have to commit your code, and push it to azure. To find your Azure git repo, go to your Apps blade > Overview and select the "git clone url". It should look something like this:
+
+![](/cloud101_webframework/fig/05-azurewebapps-0007.png)
 
 ```
 https://amandah@cloud101demo.scm.azurewebsites.net:443/cloud101demo.git

@@ -1,7 +1,7 @@
 ---
 title: "Django Web App on Microsoft Azure"
 teaching: 0
-exercises: 30
+exercises: 20
 objectives:
 - "Deploy a Django web framework on AWS Elastic Beanstalk"
 - "Learn how to use a Python IDE to build your web app"

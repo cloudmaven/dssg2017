@@ -7,7 +7,7 @@ encoding: utf-8
 kind: "lesson"
 
 # Overall title for pages.
-title: "Cloud 101 Webframework Tutorial"
+title: "Cloud Tutorial for DSSG 2017"
 
 # Repository URL (without trailing slash).
 repo: https://github.com/cloudmaven/dssg2017

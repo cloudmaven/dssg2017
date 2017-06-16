@@ -48,9 +48,9 @@ On the Choose an Instance Type page, you can select the hardware configuration o
 
 ![](/dssg2017/fig/01-aws-intro-0002.png)
 
-![](/cloud101_cloudproviders/fig/01-aws-intro-0003.png)
+![](/dssg2017/fig/01-aws-intro-0003.png)
 
-![](/cloud101_cloudproviders/fig/01-aws-intro-0004.png)
+![](/dssg2017/fig/01-aws-intro-0004.png)
 
 
 You can also add storage to your virtual machine. We will change the root directory to be 25GB, to account for installation of some packages. 

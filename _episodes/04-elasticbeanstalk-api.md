@@ -10,6 +10,16 @@ keypoints:
 - "Example of an API script"
 - "Use s3 boto"
 ---
+**What is a web framework?**
+A framework helps building a website faster and easier by providing libraries and templates. Web frameworks help with streamlining these [overheads when creating a website](https://www.fullstackpython.com/web-frameworks.html):
+
+1. URL routing
+2. HTML, XML, JSON, and other output format templating
+3. Database manipulation
+4. Security against Cross-site request forgery (CSRF) and other attacks
+5. Session storage and retrieval
+
+Django is an example of a web framework. 
 
 **Build your API**
 

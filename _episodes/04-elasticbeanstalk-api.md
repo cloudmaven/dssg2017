@@ -10,8 +10,6 @@ keypoints:
 - "Example of an API script"
 - "Use s3 boto"
 ---
-## ...Continued from [Part 1](/01-elasticbeanstalk.html)
-
 
 **Build your API**
 

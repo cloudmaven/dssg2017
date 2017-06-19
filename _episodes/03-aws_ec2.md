@@ -210,11 +210,22 @@ $ aws s3 mb s3://<bucket-name>  #make bucket
 $ aws s3 ls s3://<bucket-name> #list bucket contents
 ```
 
-Ok we left off here...
+We are now going to download a file from the internet and upload it into the bucket. This file has been stored in an s3 bucket and has been made publicly accessible (notice the URL):
 
 ```bash
-$ aws s3 cp s3://cloud101demo/Mean_Apr_ET.geojson . #download a file from a shared bucket
-$ aws s3 sync s3://<bucket-name> s3://cloud101demo --acl public-read #sync your bucket with the cloud101 bucket and allow public read access
+wget 'https://s3-us-west-2.amazonaws.com/cloud101cloudmaven/Mean_Apr_ET.geojson'
+```
+
+Next, we will upload this file that we have downloaded into your own bucket that you created:
+```bash
+$ aws s3 cp ./Mean_Apr_ET.geojson s3://<bucket-name> #upload file to bucket
+```
+
+Let's say you have multiple users under the same account, you can also easily sync buckets and set permissions using the AWS CLI. For this example, we will make a new bucket again, and sync it with the old bucket. 
+
+```bash
+$ aws s3 mb s3://<new-bucket-name> #make a new bucket 
+$ aws s3 sync s3://<new-bucket-name> s3://<bucket-name> --acl public-read #sync your bucket with the cloud101 bucket and allow public read access
 ```
 
 More info here: http://docs.aws.amazon.com/cli/latest/userguide/using-s3-commands.html

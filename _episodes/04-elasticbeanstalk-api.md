@@ -21,6 +21,8 @@ A framework helps building a website faster and easier by providing libraries an
 
 Django is an example of a web framework. 
 
+![](https://cloudmaven.github.io/documentation/images/rc/rc_lwds007_data_sharing_geospatial_context.png)
+
 **Build your API**
 
 We will create a new file in the app folder called api.py and stick this code in. 
